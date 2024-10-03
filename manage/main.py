@@ -1,3 +1,19 @@
+import subprocess
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import rustplus
+except ImportError:
+    install("rustplus")
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    install("python-dotenv")
+
 from rustplus import *
 from server_lists import get_all_servers, get_server_by_steamid
 import asyncio, json, math, os
@@ -32,6 +48,7 @@ def get_cctv():
     SmoilCodes = codes.get("SmoilCodes", [])
 
     return LoilCodes, BanditCampCodes, DomeCodes, SiloCodes, OutpostCodes, SmoilCodes
+
 
 def get_marker_message(marker_type):
     unknown_marker_type = [1, 2, 3, 7]
@@ -120,7 +137,13 @@ async def Main():
     @Command(server_details)
     async def calc(command: Command):
         args = [arg.lower() for arg in command.args]
-        
+
+        # if args[0] == "craft":
+        #     print(args[0])
+
+        # elif args[0] == "rec":
+        #     print(args[0])
+
         if args[0] == "decay":
             if len(args) >= 3:
                 decay_material = args[1]

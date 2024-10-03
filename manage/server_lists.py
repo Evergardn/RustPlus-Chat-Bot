@@ -1,17 +1,24 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+steam_id = os.getenv('steamid')
+
 servers = [
     {
         "name": "Rustafied.com - EU Long",
         "ip": "64.40.9.31",
         "port": "28017",
-        "playerId": "76561199163964082",
-        "playerToken": "422692958"
+        "playerId": steam_id,
+        "playerToken": "your token here",
     },
     {
         "name": "Rustafied.com - EU Long III",
         "ip": "195.60.166.130",
         "port": "28017",
-        "playerId": "76561199163964082",
-        "playerToken": "-2095244273",
+        "playerId": steam_id,
+        "playerToken": "your token here",
     },
 ]
 
