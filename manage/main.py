@@ -185,6 +185,43 @@ async def start_bot():
             await rust_socket.send_team_message("This monument doesn't have camera codes or doesn't exist")
 
     @Command(server_details)
+<<<<<<< HEAD
+=======
+    async def calc(command: Command):
+        args = [arg.lower() for arg in command.args]
+
+        if args[0] == "decay":
+            if len(args) >= 3:
+                decay_material = args[1]
+                decay_value = args[2]
+
+                if decay_material == "wood":
+                    x = int(decay_value) / 83
+                    result = round(x, 2)
+                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100 )) + " minutes till decay")
+
+                elif decay_material == "stone":
+                    x = int(decay_value) / 100
+                    result = round(x, 2)
+                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100)) + " minutes till decay")
+
+                elif decay_material == "metal":
+                    x = int(decay_value) / 125
+                    result = round(x, 2)
+                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100 )) + " minutes till decay")
+
+                elif decay_material == "hqm":
+                    x = int(decay_value) / 166
+                    
+                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100)) + " minutes till decay")
+
+            else:
+                await rust_socket.send_team_message("Command usage: !calc decay [material] [value]")
+        else:
+            await rust_socket.send_team_message("This is not a valid argument, try [decay]")
+
+    @Command(server_details)
+>>>>>>> d69333fb85293e13efdf2bb8f5dcabeb75912c14
     async def team(command: ChatCommand):
         info = await rust_socket.get_team_info()
 
@@ -239,6 +276,7 @@ async def start_bot():
 
     await rust_socket.hang()
 
+<<<<<<< HEAD
 async def main():
     while True:
         choice = show_menu()
@@ -256,3 +294,6 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+=======
+asyncio.run(Main())
+>>>>>>> d69333fb85293e13efdf2bb8f5dcabeb75912c14
