@@ -1,41 +1,17 @@
-import subprocess
-import sys
-
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-try:
-    import rustplus
-except ImportError:
-    install("rustplus")
-
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    install("python-dotenv")
-
 from rustplus import *
-from server_lists import get_all_servers, get_server_by_steamid
-import asyncio, json, math, os
-from datetime import datetime, timezone
-from dotenv import load_dotenv
+import asyncio, json, os, sys, subprocess
+from datetime import datetime
+from database import *
 
-load_dotenv()
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
+clear_console()
 
-steam_id = os.getenv('steamid')
-server_data = get_server_by_steamid(steam_id)
 desired_marker_types = {4, 5, 6, 8}
-
-if server_data:
-    name = server_data['name']
-    ip = server_data['ip']
-    port = server_data['port']
-    playerId = server_data['playerId']
-    playerToken = server_data['playerToken']
 
 def get_cctv():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, 'manage', 'cctv.json')
+    file_path = os.path.join(base_dir, 'cctv.json')
     
     with open(file_path, 'r') as f:
         codes = json.load(f)
@@ -54,27 +30,105 @@ def get_marker_message(marker_type):
     unknown_marker_type = [1, 2, 3, 7]
         
     if marker_type == 4:
-        type_chinook = "Chinook incoming"
-        return type_chinook
+        return "Chinook incoming"
     elif marker_type == 5:
-        type_cargo = "Cargo Ship spotted"
-        return type_cargo
+        return "Cargo Ship spotted"
     elif marker_type == 6:
-        type_crate = "Crate detected"
-        return type_crate
+        return "Crate detected"
     elif marker_type == 8:
-        type_heli = "Patrol Helicopter in the area"
-        return type_heli
+        return "Patrol Helicopter in the area"
     else:
         return "Unknown marker"
 
-async def Main():
+def show_menu():
+    print("\nMain Menu:")
+    print("1. Start bot")
+    print("2. Add new Server")
+    print("3. Delete Server")
+    print("4. View all valid Servers")
+    return input("Choose the option: ")
+
+def add_server():
+    server_name = input("Enter server's name: ")
+    server_ip = input("Enter server's ip: ")
+    server_port = input("Enter server's port: ")
+    player_id = input("Enter player's steam_id: ")
+    player_token = input("Etner player's token: ")
+
+    insert_server(server_name, server_ip, server_port, player_id, player_token)
+    print(f"Server {server_name} successfully added.")
+    clear_console()
+
+def delete_server():
+    servers = get_all_servers()
+    
+    if not servers:
+        print("No servers to delete.")
+        return
+    
+    print("\nAvailable servers:")
+    for i, server in enumerate(servers):
+        print(f"{i + 1}. {server[1]} (IP: {server[2]}, Port: {server[3]})")
+    
+    try:
+        server_choice = int(input("Choose server to delete: ")) - 1
+        if 0 <= server_choice < len(servers):
+            delete_server_by_id(servers[server_choice][0])
+            print(f"Server {servers[server_choice][1]} deleted.")
+        else:
+            print("Incorrect choice.")
+    except ValueError:
+        print("Please, enter the number.")
+
+def show_servers():
+    servers = get_all_servers()
+    
+    if not servers:
+        print("Server are not founded.")
+    else:
+        print("\nAvailable servers:")
+        for i, server in enumerate(servers):
+            print(f"{i + 1}. {server[1]} (IP: {server[2]}, Port: {server[3]})")
+
+async def start_bot():
+    clear_console()
+    create_db()
+    servers = get_all_servers()
+    
+    if not servers:
+        print("Server are not founded. Please, add new server.")
+        return
+
+    print("\nAvailable servers:")
+    for i, server in enumerate(servers):
+        print(f"{i + 1}. {server[1]} (IP: {server[2]}, Port: {server[3]})")
+
+    try:
+        server_choice = int(input("\nChoose the server to run bot: ")) - 1
+        
+        if server_choice < 0 or server_choice >= len(servers):
+            print("Please, choose the available server.")
+            return
+        
+        selected_server = servers[server_choice]
+        print(f"\nRunnig bot for server: {selected_server[1]}")
+    except ValueError:
+        print("Incorrect input. Please, use only numbers.")
+        return
+
+    server_details = ServerDetails(
+        selected_server[2],  # IP from the database
+        selected_server[3],  # Port from the database
+        selected_server[4],  # Player ID from the database
+        selected_server[5]   # Player Token from the database
+    )
+
     options = CommandOptions(prefix="!")
-    server_details = ServerDetails(ip, port, playerId, playerToken)
     rust_socket = RustSocket(server_details, command_options=options)
 
     await rust_socket.connect()
     await rust_socket.send_team_message("Bot connected and ready!")
+
 
     @Command(server_details)
     async def help(command: ChatCommand):
@@ -92,10 +146,6 @@ async def Main():
     @Command(server_details)
     async def pop(command: ChatCommand):
         await rust_socket.send_team_message("Currently " + str((await rust_socket.get_info()).players) + " players connected!")
-
-    @Command(server_details)
-    async def seed(command: ChatCommand):
-        await rust_socket.send_team_message("The seed is " + str((await rust_socket.get_info()).seed))
 
     @Command(server_details)
     async def codes(command: ChatCommand):
@@ -135,46 +185,6 @@ async def Main():
             await rust_socket.send_team_message("This monument doesn't have camera codes or doesn't exist")
 
     @Command(server_details)
-    async def calc(command: Command):
-        args = [arg.lower() for arg in command.args]
-
-        # if args[0] == "craft":
-        #     print(args[0])
-
-        # elif args[0] == "rec":
-        #     print(args[0])
-
-        if args[0] == "decay":
-            if len(args) >= 3:
-                decay_material = args[1]
-                decay_value = args[2]
-
-                if decay_material == "wood":
-                    x = int(decay_value) / 83
-                    result = round(x, 2)
-                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100 )) + " minutes till decay")
-
-                elif decay_material == "stone":
-                    x = int(decay_value) / 100
-                    result = round(x, 2)
-                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100)) + " minutes till decay")
-
-                elif decay_material == "metal":
-                    x = int(decay_value) / 125
-                    result = round(x, 2)
-                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100 )) + " minutes till decay")
-
-                elif decay_material == "hqm":
-                    x = int(decay_value) / 166
-                    
-                    await rust_socket.send_team_message(str(math.trunc(x/1.66666666666*100)) + " minutes till decay")
-
-            else:
-                await rust_socket.send_team_message("Command usage: !calc decay [material] [value]")
-        else:
-            await rust_socket.send_team_message("This is not a valid argument, try [decay]")
-
-    @Command(server_details)
     async def team(command: ChatCommand):
         info = await rust_socket.get_team_info()
 
@@ -203,39 +213,46 @@ async def Main():
             elif 23.90 <= currentTime <= 23.91 and isTime2 and not day_message_sent:
                 await rust_socket.send_team_message("It will be Day in 5 Minutes")
                 day_message_sent = True
-    
-    async def log_team_chat():
+
+    async def event():
+        processed_marker_ids = set()
+
         try:
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            log_file_path = os.path.join(base_dir, 'files', 'team_chat.txt')
+            while True:
+                markers = await rust_socket.get_markers()
+                filtered_markers = [marker for marker in markers if marker.type in desired_marker_types]
 
-            os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+                for marker in filtered_markers:
+                    if marker.id not in processed_marker_ids:
+                        message = get_marker_message(marker.type)
+                        await asyncio.sleep(2)
+                        await rust_socket.send_team_message(f"Event was found: {message}!")
 
-            messages = await rust_socket.get_team_chat()
+                        processed_marker_ids.add(marker.id)
 
-            with open(log_file_path, 'a') as f:
-                for message in messages:
-                    readable_time = datetime.fromtimestamp(message.time, timezone.utc).strftime('%Y-%m-%d : %H:%M:%S')
-                    log_entry = f"{readable_time} - {message.name}: {message.message}\n"
-                    f.write(log_entry)
-
-            print("Team chat messages have been logged.")
-                
+                await asyncio.sleep(10)  # Check for new events every 10 seconds
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    async def events():
-        markers = await rust_socket.get_markers()
-        filtered_markers = [marker for marker in markers if marker.type in desired_marker_types]
-        
-        for marker in filtered_markers:
-            message = get_marker_message(marker.type)
-            await rust_socket.send_team_message(f"Event was found: {message}!")
-
-    asyncio.create_task(log_team_chat())
     asyncio.create_task(nightDay())
-    asyncio.create_task(events())
+    asyncio.create_task(event())
 
     await rust_socket.hang()
 
-asyncio.run(Main())
+async def main():
+    while True:
+        choice = show_menu()
+
+        if choice == '1':
+            await start_bot()
+        elif choice == '2':
+            add_server()
+        elif choice == '3':
+            delete_server()
+        elif choice == '4':
+            show_servers()
+        else:
+            print("Incorrect choice, please try again.")
+
+if __name__ == "__main__":
+    asyncio.run(main())
