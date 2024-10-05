@@ -1,6 +1,7 @@
 # How to Use RustPlus-Chat-Bot
 
 This guide will walk you through the steps to set up and run the RustPlus-Chat-Bot. Follow these steps based on whether you are using PowerShell or Command Prompt (cmd) on your computer.
+
 ### Step 0: Install Extension in Browser
 
 If you didn't have an extension [install it](https://chromewebstore.google.com/detail/rustpluspy-link-companion/gojhnmnggbnflhdcpcemeahejhcimnlf?pli=1) (its not mine)
@@ -32,7 +33,7 @@ If you are using PowerShell, follow these steps:
 2. Run the following command to set up the virtual environment, activate it, and install the required package:
 
    ```powershell
-   cd .\Desktop\RustPlus-Chat-Bot\
+   cd .\Desktop\RustPlus-Chat-Bot-main\
    py -m venv venv
    .\venv\Scripts\activate
    pip install rustplus
@@ -51,7 +52,7 @@ If you are using PowerShell, follow these steps:
 2. Run the following commands to activate the virtual environment and navigate to the manage folder:
 
    ```powershell
-   cd .\Desktop\RustPlus-Chat-Bot\
+   cd .\Desktop\RustPlus-Chat-Bot-main\
    .\venv\Scripts\activate
    cd .\manage\
    ```
@@ -67,7 +68,7 @@ If you are using PowerShell, follow these steps:
 If you plan to run the bot just once per day, use the following single-line command:
 
 ```powershell
-cd .\Desktop\RustPlus-Chat-Bot\ ; .\venv\Scripts\activate ; cd .\manage\ ; py main.py
+cd .\Desktop\RustPlus-Chat-Bot-main\ ; .\venv\Scripts\activate ; cd .\manage\ ; py main.py
 ```
 
 ---
@@ -80,7 +81,7 @@ If you are using Command Prompt, follow these steps:
 2. Run the following commands to set up the virtual environment, activate it, and install the required package:
 
    ```cmd
-   cd Desktop/RustPlus-Chat-Bot
+   cd Desktop/RustPlus-Chat-Bot-main
    py -m venv venv
    .\venv\Scripts\activate
    pip install rustplus
