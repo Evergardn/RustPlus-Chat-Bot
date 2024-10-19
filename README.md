@@ -1,6 +1,6 @@
 # How to Use RustPlus-Chat-Bot
 
-This guide will walk you through the steps to set up and run the RustPlus-Chat-Bot. Follow these steps based on whether you are using PowerShell or Command Prompt (cmd) on your computer.
+This guide will walk you through the steps to set up and run the RustPlus-Chat-Bot.
 
 ### Step 0: Install Extension in Browser
 
@@ -9,5 +9,10 @@ Then you need to start it, log to Steam account and Ingame make a request connec
 And after that the Extension will find your request and you'll have enough data to use bot
 
 ### Step 1: Start the Bot
+
+Start RustPlusBot.exe file and do NOT delete '_internal' directory!!!
+
+
+
 
 If you entered server information and saw an error for a second, it’s okay, try restarting the bot and everything will work out.
