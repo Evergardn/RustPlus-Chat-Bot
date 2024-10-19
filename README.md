@@ -8,7 +8,9 @@ If you didn't have an extension [install it](https://chromewebstore.google.com/d
 Then you need to start it, log to Steam account and Ingame make a request connection to Rust+ mobile app.
 And after that the Extension will find your request and you'll have enough data to use bot
 
-### Step 1: Start the Bot
+### Step 1: Install and UnZip file
+
+### Step 2: Start the Bot
 
 Start RustPlusBot.exe file and do NOT delete '_internal' directory!!!
 
