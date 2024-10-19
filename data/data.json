@@ -1,0 +1,346 @@
+{
+    "scrap_data": {
+        "unsafe": {
+            "pipes": {
+                "scrap": 6,
+                "hqm": 2
+            },
+            "sheet": {
+                "scrap": 9,
+                "metal frags": 120
+            },
+            "semi": {
+                "scrap": 18,
+                "metal frags": 90
+            },
+            "rifle": {
+                "scrap": 30,
+                "hqm": 2
+            },
+            "gears": {
+                "scrap": 12,
+                "metal frags": 15
+            },
+            "tarp": {
+                "cloth": 60
+            },
+            "fuse": {
+                "scrap": 24
+            },
+            "blade": {
+                "scrap": 2,
+                "metal frags": 18
+            },
+            "propane": {
+                "scrap": 1,
+                "metal frags": 60
+            },
+            "spring": {
+                "scrap": 12,
+                "hqm": 2
+            },
+            "smg": {
+                "scrap": 18,
+                "hqm": 2
+            },
+            "signs": {
+                "scrap": 6,
+                "hqm": 2
+            },
+            "tech": {
+                "scrap": 24,
+                "hqm": 2
+            },
+            "kit": {
+                "cloth": 12,
+                "ropes": 2
+            },
+            "rope": {
+                "cloth": 18
+            },
+            "camera": {
+                "tech trash": 2,
+                "hqm": 2
+            },
+            "computer": {
+                "tech trash": 3,
+                "metal frags": 60,
+                "hqm": 2
+            }
+        },
+        "safe": {
+            "pipes": {
+                "scrap": 4,
+                "hqm": 2
+            },
+            "sheet": {
+                "scrap": 6,
+                "metal frags": 80,
+                "hqm": 1
+            },
+            "semi": {
+                "scrap": 12,
+                "metal frags": 60,
+                "hqm": 2
+            },
+            "rifle": {
+                "scrap": 20,
+                "hqm": 2
+            },
+            "gears": {
+                "scrap": 8,
+                "metal frags": 10
+            },
+            "tarp": {
+                "cloth": 40
+            },
+            "fuse": {
+                "scrap": 16
+            },
+            "blade": {
+                "scrap": 1,
+                "metal frags": 12
+            },
+            "propane": {
+                "metal frags": 40
+            },
+            "spring": {
+                "scrap": 8,
+                "hqm": 1
+            },
+            "smg": {
+                "scrap": 12,
+                "hqm": 2
+            },
+            "signs": {
+                "scrap": 4,
+                "hqm": 1
+            },
+            "tech": {
+                "scrap": 16,
+                "hqm": 1
+            },
+            "kit": {
+                "cloth": 8,
+                "ropes": 2
+            },
+            "rope": {
+                "cloth": 12
+            },
+            "camera": {
+                "tech trash": 2,
+                "hqm": 2
+            },
+            "computer": {
+                "tech trash": 2,
+                "metal frags": 40,
+                "hqm": 2
+            }
+        }
+    },
+    "item_mapping": {
+        "metal pipe": "pipes",
+        "sheet metal": "sheet",
+        "semi automatic body": "semi",
+        "rifle body": "rifle",
+        "gears": "gears",
+        "tarp": "tarp",
+        "electric fuse": "fuse",
+        "metal blade": "blade",
+        "empty propane tank": "propane",
+        "metal spring": "spring",
+        "smg body": "smg",
+        "road signs": "signs",
+        "tech trash": "tech",
+        "sewing kit": "kit",
+        "rope": "rope",
+        "cctv camera": "camera",
+        "targeting computer": "computer"
+    },
+    "raid_data": {
+        "wooden wall": {
+            "health": "250",
+            "bean can": {
+                "damage": 11,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 51,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 2,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 275,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 137,
+                "sulfur": 1400
+            }
+        },
+        "stone wall": {
+            "health": "500",
+            "bean can": {
+                "damage": 11,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 51,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 2,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 275,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 137,
+                "sulfur": 1400
+            }
+        },
+        "metal wall": {
+            "health": "1000",
+            "bean can": {
+                "damage": 9,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 43,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 2,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 275,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 137,
+                "sulfur": 1400
+            }
+        },
+        "hqm wall": {
+            "health": "2000",
+            "bean can": {
+                "damage": 9,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 43,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 2,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 275,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 137,
+                "sulfur": 1400
+            }
+        },
+        "metal door": {
+            "health": "250",
+            "bean can": {
+                "damage": 14,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 70,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 4,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 440,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 220,
+                "sulfur": 1400
+            }
+        },
+        "hqm door": {
+            "health": "1000",
+            "bean can": {
+                "damage": 14,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 70,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 4,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 440,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 220,
+                "sulfur": 1400
+            }
+        },
+        "garage door": {
+            "health": "600",
+            "bean can": {
+                "damage": 24,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 70,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 4,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 440,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 220,
+                "sulfur": 1400
+            }
+        },
+        "glass wall": {
+            "health": "750",
+            "bean can": {
+                "damage": 7,
+                "sulfur": 120
+            },
+            "satchel": {
+                "damage": 43,
+                "sulfur": 480
+            },
+            "explosive ammo": {
+                "damage": 2,
+                "sulfur": 25
+            },
+            "c4": {
+                "damage": 275,
+                "sulfur": 2200
+            },
+            "rocket": {
+                "damage": 137,
+                "sulfur": 1400
+            }
+        }
+    }
+}

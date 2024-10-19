@@ -1,7 +1,14 @@
 import sqlite3
+import os
+
+def get_db_path():
+    db_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(db_dir, 'servers.db')
 
 def create_db():
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('''
@@ -19,7 +26,9 @@ def create_db():
     conn.close()
 
 def insert_server(name, ip, port, playerId, playerToken):
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('''
@@ -31,7 +40,9 @@ def insert_server(name, ip, port, playerId, playerToken):
     conn.close()
 
 def get_all_servers():
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('SELECT * FROM servers')
@@ -41,7 +52,9 @@ def get_all_servers():
     return servers
 
 def get_server_by_id(server_id):
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('SELECT * FROM servers WHERE id=?', (server_id,))
@@ -51,7 +64,9 @@ def get_server_by_id(server_id):
     return server
 
 def delete_all_servers():
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('DELETE FROM servers')
@@ -60,7 +75,9 @@ def delete_all_servers():
     conn.close()
 
 def delete_server_by_id(server_id):
-    conn = sqlite3.connect('servers.db')
+    db_path = get_db_path()
+
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute('DELETE FROM servers WHERE id=?', (server_id,))
