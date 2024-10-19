@@ -1,65 +1,101 @@
-# RustPlus-Chat-Bot
-This bot is designed to interact with Rust game servers, providing various functions through chat commands. It automatically connects to the server and monitors important events, and can also perform a number of useful operations for players. The bot uses the RUST+ library and interacts with the game's command system.
+# How to Use RustPlus-Chat-Bot
 
-# Tutorial how to use (free-version)
+This guide will walk you through the steps to set up and run the RustPlus-Chat-Bot. Follow these steps based on whether you are using PowerShell or Command Prompt (cmd) on your computer.
 
-# Step 1: Download and extract files
-  1. Download the archive with the program to your computer.
-  2. Unzip the archive to your desktop. This can be done using built-in Windows tools or third-party archivers such as WinRAR or 7-Zip.
-  3. Make sure that the folder with the program is on the desktop and is called, for example, `RustPlus-Chat-Bot`.
+### Step 0: Install Extension in Browser
 
-# Step 2: Opening a Command Prompt
-  1. Press the key combination `Win + R` to open the Run window.
-  2. Type `cmd` and press `Enter` to open the command line **or**:
-   - Right-click on the Start menu and select **Windows PowerShell** (or **Command Prompt**).
-   
-# Step 3: Move to the program directory
-  1. In the command line that opens, enter the following command to go to the program folder:
-     ```bash
-     cd Desktop/RustPlus-Chat-Bot
-     ```
-     This command will take you to the folder on your desktop where the program files are located.
+If you didn't have an extension [install it](https://chromewebstore.google.com/detail/rustpluspy-link-companion/gojhnmnggbnflhdcpcemeahejhcimnlf?pli=1) (its not mine)
+Then you need to start it, log to Steam account and Ingame make a request connection to Rust+ mobile app.
+And after that the Extension will find your request and you'll have enough data to use bot
 
-# Step 4: Creating a virtual environment Python
-  1. At the command prompt, run the following command to create the virtual environment:
-     ```bash
-     py -m venv venv
-     ```
-     This will create an isolated virtual Python environment so that all of the program's dependencies are installed locally and do not conflict with other projects.
-     
-# Step 5: Activate venv (virtual enviroment)
-  1. Activate the virtual environment (if you are using Windows):
-     ```bash
-     .\venv\Scripts\activate
-     ```
-     If you are using PowerShell, first run the following command to enable script execution:
-     ```bash
-     Set-ExecutionPolicy RemoteSigned
-     ```
-     Then activate the virtual environment again:
-     ```bash
-     .\venv\Scripts\activate
-     ```
+### Step 1: Verify Python Installation
 
-  2. Download obligatory libraries:
-     ```bash
-     pip install rustplus python-dotenv
-      ```
+Before proceeding, ensure Python is installed on your computer. You can check this by running the following command in either PowerShell or cmd:
 
-# Step 6: Run the program
-  1. Go to the `manage` directory where the launch file is located:
-     ```bash
-     cd manage
-     ```
-  2. Run the command to start the program:
-     ```bash
-     py main.py
-     ```
+```
+python --version
+```
 
- Completion
-After completing these steps, the program should start working. If everything went well, you will see corresponding messages on the command line. 
+If Python is not installed, download it from the [official Python website](https://www.python.org/downloads/).
 
- Adviсe:
-- If something doesn't work, make sure you have activated the virtual environment and entered the commands correctly.
-- If errors occur, check that the files are unpacked correctly and the dependencies are installed.
-- Check that u download python on the page: [python.org](https://www.python.org/)
+### Step 2: Download and Unzip the Project
+
+1. Download the RustPlus-Chat-Bot project as a ZIP file.
+2. Unzip (extract) the file onto your **Desktop**.
+
+### PowerShell Setup and Run
+
+If you are using PowerShell, follow these steps:
+
+#### For the First-Time Setup:
+
+1. Open PowerShell.
+2. Run the following command to set up the virtual environment, activate it, and install the required package:
+
+   ```powershell
+   cd .\Desktop\RustPlus-Chat-Bot-main\
+   py -m venv venv
+   .\venv\Scripts\activate
+   pip install rustplus
+   cd .\manage\
+   ```
+
+3. To start the bot, run:
+
+   ```powershell
+   py main.py
+   ```
+
+#### For Running Regularly:
+
+1. Open PowerShell.
+2. Run the following commands to activate the virtual environment and navigate to the manage folder:
+
+   ```powershell
+   cd .\Desktop\RustPlus-Chat-Bot-main\
+   .\venv\Scripts\activate
+   cd .\manage\
+   ```
+
+3. Start the bot:
+
+   ```powershell
+   py main.py
+   ```
+
+#### (Optional) To Run the Bot Once Per Day:
+
+If you plan to run the bot just once per day, use the following single-line command:
+
+```powershell
+cd .\Desktop\RustPlus-Chat-Bot-main\ ; .\venv\Scripts\activate ; cd .\manage\ ; py main.py
+```
+
+---
+
+### Command Prompt (cmd) Setup and Run
+
+If you are using Command Prompt, follow these steps:
+
+1. Open Command Prompt (cmd).
+2. Run the following commands to set up the virtual environment, activate it, and install the required package:
+
+   ```cmd
+   cd Desktop/RustPlus-Chat-Bot-main
+   py -m venv venv
+   .\venv\Scripts\activate
+   pip install rustplus
+   cd manage
+   ```
+
+3. To run the bot for the first time and keep it running, add:
+
+   ```cmd
+   py main.py
+   ```
+
+   *If you don't plan to restart the bot regularly, simply add the last command after the setup.*
+
+---
+
+Now your RustPlus-Chat-Bot should be up and running!
