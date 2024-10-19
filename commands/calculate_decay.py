@@ -2,7 +2,7 @@ import math
 
 async def calc_decay(args, rust_socket):
     if len(args) < 3:
-        await rust_socket.send_team_message("Command usage: /calc decay [material] [value]")
+        await rust_socket.send_team_message("Command usage: !calc decay {material} {value}")
         return
 
     decay_material = args[1]
@@ -23,4 +23,4 @@ async def calc_decay(args, rust_socket):
         decay_time = decay_value / decay_calculations[decay_material]
         await rust_socket.send_team_message(f"{math.trunc(decay_time / 1.66666666666 * 100)} minutes till decay")
     else:
-        await rust_socket.send_team_message("Error: Invalid material specified. Please use [wood, stone, metal, hqm].")
+        await rust_socket.send_team_message("Error: Invalid material specified. Please use {wood, stone, metal, hqm}.")
